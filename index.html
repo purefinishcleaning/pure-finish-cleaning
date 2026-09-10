@@ -400,14 +400,14 @@
     };
 
     try{
-      const db = await claude.use("db");
-      if(db){
-        const id = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
-        await db.doc('leads/' + id).set(entry);
-      }
+      await fetch('https://formspree.io/f/mdeoyywq', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      });
     }catch(err){
-      console.error('Storage error:', err);
-      // Continue to show success regardless — don't block the customer on a storage hiccup.
+      console.error('Submission error:', err);
+      // Continue to show success regardless — don't block the customer on a network hiccup.
     }
 
     form.style.display = 'none';
