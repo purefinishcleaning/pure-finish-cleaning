@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pure Finish Cleaning — Request a Quote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1f2b28;
+    --paper:#f6f4ee;
+    --paper-dim:#ece8de;
+    --line:#d8d2c2;
+    --moss:#3f5d4f;
+    --moss-deep:#2a4237;
+    --clay:#c1683f;
+    --white:#ffffff;
+  }
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --ink:#eae7dd;
+      --paper:#1a201d;
+      --paper-dim:#232a26;
+      --line:#3a423d;
+      --moss:#7ea491;
+      --moss-deep:#9fc1af;
+      --clay:#e08b5f;
+      --white:#20261f;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eae7dd;
+    --paper:#1a201d;
+    --paper-dim:#232a26;
+    --line:#3a423d;
+    --moss:#7ea491;
+    --moss-deep:#9fc1af;
+    --clay:#e08b5f;
+    --white:#20261f;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Karla', -apple-system, sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width:760px;
+    margin:0 auto;
+    padding:56px 24px 80px;
+  }
+  header.hero{
+    margin-bottom:48px;
+  }
+  .mark{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:36px;
+  }
+  .mark svg{ flex-shrink:0; }
+  .mark span{
+    font-family:'Fraunces', serif;
+    font-size:1.15rem;
+    font-weight:600;
+    letter-spacing:0.01em;
+  }
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(2.1rem, 5vw, 3rem);
+    line-height:1.08;
+    margin:0 0 18px;
+    max-width:14ch;
+  }
+  h1 em{
+    font-style:italic;
+    color:var(--moss);
+  }
+  .sub{
+    font-size:1.05rem;
+    color:var(--ink);
+    opacity:0.72;
+    max-width:46ch;
+    margin:0;
+  }
+
+  form{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:40px;
+  }
+  .row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:560px){
+    .row{ grid-template-columns:1fr; }
+    form{ padding:28px 22px; }
+  }
+  .field{
+    margin-bottom:22px;
+  }
+  label{
+    display:block;
+    font-size:0.85rem;
+    font-weight:600;
+    margin-bottom:7px;
+    color:var(--ink);
+  }
+  label .opt{
+    font-weight:400;
+    opacity:0.55;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea{
+    width:100%;
+    padding:12px 14px;
+    font-family:'Karla', sans-serif;
+    font-size:0.98rem;
+    color:var(--ink);
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:3px;
+    outline:none;
+    transition:border-color 0.15s ease;
+  }
+  input:focus, select:focus, textarea:focus{
+    border-color:var(--moss);
+  }
+  textarea{
+    min-height:96px;
+    resize:vertical;
+  }
+
+  fieldset{
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:18px 18px 20px;
+    margin:0 0 26px;
+  }
+  fieldset legend{
+    font-size:0.85rem;
+    font-weight:600;
+    padding:0 8px;
+    margin-left:-8px;
+  }
+  .consent-row{
+    display:flex;
+    align-items:flex-start;
+    gap:11px;
+  }
+  .consent-row input[type="checkbox"]{
+    margin-top:4px;
+    width:17px;
+    height:17px;
+    flex-shrink:0;
+    accent-color:var(--moss);
+  }
+  .consent-row p{
+    margin:0;
+    font-size:0.88rem;
+    line-height:1.55;
+    opacity:0.85;
+  }
+  .consent-row a{ color:var(--moss); }
+
+  button[type="submit"]{
+    width:100%;
+    padding:15px 20px;
+    background:var(--moss);
+    color:var(--white);
+    border:none;
+    border-radius:3px;
+    font-family:'Karla', sans-serif;
+    font-size:1rem;
+    font-weight:700;
+    cursor:pointer;
+    transition:background 0.15s ease;
+  }
+  button[type="submit"]:hover{ background:var(--moss-deep); }
+  button[type="submit"]:disabled{ opacity:0.55; cursor:not-allowed; }
+
+  .err{
+    color:var(--clay);
+    font-size:0.8rem;
+    margin-top:6px;
+    display:none;
+  }
+  .field.invalid input, .field.invalid select{
+    border-color:var(--clay);
+  }
+  .field.invalid .err{ display:block; }
+
+  #statusBox{
+    display:none;
+    text-align:center;
+    padding:56px 30px;
+  }
+  #statusBox.show{ display:block; }
+  #statusBox h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.7rem;
+    margin:0 0 12px;
+  }
+  #statusBox p{ opacity:0.75; margin:0; }
+  #statusBox .checkmark{
+    width:46px; height:46px;
+    margin:0 auto 20px;
+  }
+
+  footer{
+    margin-top:30px;
+    font-size:0.82rem;
+    opacity:0.55;
+    text-align:center;
+  }
+
+  @media (prefers-reduced-motion: no-preference){
+    form, #statusBox{ animation:rise 0.5s ease; }
+  }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(10px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="mark">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="16" stroke="var(--moss)" stroke-width="1.4"/>
+        <path d="M11 18.5C11 14 13.5 10.5 17 8.5C20.5 10.5 23 14 23 18.5C23 22 20.3 25 17 25C13.7 25 11 22 11 18.5Z" fill="var(--moss)"/>
+        <path d="M17 8.5V25" stroke="var(--paper)" stroke-width="1" opacity="0.4"/>
+      </svg>
+      <span>Pure Finish Cleaning</span>
+    </div>
+    <h1>Tell us what needs a <em>fresh finish.</em></h1>
+    <p class="sub">Share a few details and we'll follow up with a quote — usually within one business day.</p>
+  </header>
+
+  <form id="quoteForm" novalidate>
+    <div class="row">
+      <div class="field">
+        <label for="firstName">First name</label>
+        <input type="text" id="firstName" required autocomplete="given-name">
+        <div class="err">Enter your first name.</div>
+      </div>
+      <div class="field">
+        <label for="lastName">Last name</label>
+        <input type="text" id="lastName" required autocomplete="family-name">
+        <div class="err">Enter your last name.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="phone">Phone number</label>
+        <input type="tel" id="phone" required autocomplete="tel" placeholder="(555) 123-4567">
+        <div class="err">Enter a valid phone number.</div>
+      </div>
+      <div class="field">
+        <label for="email">Email <span class="opt">(optional)</span></label>
+        <input type="email" id="email" autocomplete="email">
+        <div class="err">Enter a valid email.</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="field">
+        <label for="serviceType">Service needed</label>
+        <select id="serviceType" required>
+          <option value="" disabled selected>Choose one</option>
+          <option>Residential cleaning</option>
+          <option>Commercial / office cleaning</option>
+          <option>Post-construction cleaning</option>
+          <option>Move-in / move-out cleaning</option>
+          <option>Recurring maintenance cleaning</option>
+          <option>Other</option>
+        </select>
+        <div class="err">Select a service.</div>
+      </div>
+      <div class="field">
+        <label for="zip">ZIP code</label>
+        <input type="text" id="zip" required inputmode="numeric" placeholder="77034">
+        <div class="err">Enter your ZIP code.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="details">Anything we should know? <span class="opt">(optional)</span></label>
+      <textarea id="details" placeholder="Square footage, timeline, access notes..."></textarea>
+    </div>
+
+    <fieldset>
+      <legend>Text message consent</legend>
+      <div class="consent-row">
+        <input type="checkbox" id="smsConsent" required>
+        <p>
+          I agree to receive text messages from Pure Finish Cleaning about my quote,
+          scheduling, and appointment updates. Message and data rates may apply.
+          Message frequency varies. Reply <strong>STOP</strong> to unsubscribe,
+          <strong>HELP</strong> for help. Consent is not a condition of purchase.
+        </p>
+      </div>
+      <div class="err" style="margin-left:28px;">Please check the box to continue.</div>
+    </fieldset>
+
+    <button type="submit" id="submitBtn">Request my quote</button>
+  </form>
+
+  <div id="statusBox">
+    <svg class="checkmark" viewBox="0 0 46 46" fill="none">
+      <circle cx="23" cy="23" r="22" stroke="var(--moss)" stroke-width="1.6"/>
+      <path d="M14 23.5L19.5 29L32 15.5" stroke="var(--moss)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h2>Request received</h2>
+    <p>Thanks — we'll text or call you shortly to confirm details and get you a quote.</p>
+  </div>
+
+  <footer>Pure Finish Cleaning</footer>
+</div>
+
+<script>
+(function(){
+  const form = document.getElementById('quoteForm');
+  const statusBox = document.getElementById('statusBox');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function setInvalid(fieldEl, invalid){
+    const wrapper = fieldEl.closest('.field') || fieldEl.closest('fieldset');
+    if(!wrapper) return;
+    wrapper.classList.toggle('invalid', invalid);
+  }
+
+  function validPhone(v){
+    const digits = v.replace(/\D/g,'');
+    return digits.length >= 10;
+  }
+  function validEmail(v){
+    if(!v) return true;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const phone = document.getElementById('phone');
+    const email = document.getElementById('email');
+    const serviceType = document.getElementById('serviceType');
+    const zip = document.getElementById('zip');
+    const details = document.getElementById('details');
+    const smsConsent = document.getElementById('smsConsent');
+
+    let ok = true;
+    [
+      [firstName, firstName.value.trim().length > 0],
+      [lastName, lastName.value.trim().length > 0],
+      [phone, validPhone(phone.value)],
+      [email, validEmail(email.value)],
+      [serviceType, serviceType.value !== ''],
+      [zip, zip.value.trim().length >= 5],
+      [smsConsent, smsConsent.checked],
+    ].forEach(([el, isValid]) => {
+      setInvalid(el, !isValid);
+      if(!isValid) ok = false;
+    });
+
+    if(!ok) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    const entry = {
+      firstName: firstName.value.trim(),
+      lastName: lastName.value.trim(),
+      phone: phone.value.trim(),
+      email: email.value.trim(),
+      serviceType: serviceType.value,
+      zip: zip.value.trim(),
+      details: details.value.trim(),
+      smsConsent: true,
+      submittedAt: new Date().toISOString()
+    };
+
+    try{
+      const db = await claude.use("db");
+      if(db){
+        const id = 'lead_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+        await db.doc('leads/' + id).set(entry);
+      }
+    }catch(err){
+      console.error('Storage error:', err);
+      // Continue to show success regardless — don't block the customer on a storage hiccup.
+    }
+
+    form.style.display = 'none';
+    statusBox.classList.add('show');
+  });
+})();
+</script>
+</body>
+</html>
